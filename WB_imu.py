@@ -2,7 +2,7 @@ import smbus
 from time import sleep
 import csv
 
-# one byte = 8 bits
+
 # asteriapi2 raspberry pi password
 
 # id of the i2c bus
@@ -26,6 +26,8 @@ addr_y_l = 0x3e
 addr_z_h = 0x3f
 addr_z_l = 0x40
 
+#need magnetometer and gyroscope addresses, all 16bits
+
 # set up bus
 bus = smbus.SMBus(DEVICE_BUS)
 
@@ -47,6 +49,8 @@ def read_raw_acc_data(dev_addr, reg_addr):
     high = bus.read_byte_data(dev_addr, reg_addr)
     low = bus.read_byte_data(dev_addr, reg_addr+1)
 
+    # or operator
+    #want 1 for acceleration
     value = (high << 8) | low
 
     # get signed value
@@ -54,7 +58,11 @@ def read_raw_acc_data(dev_addr, reg_addr):
         value -= 65536
     return value
 
+def read_gyro_data():
+    stuff = 1
 
+def read_mag_data():
+    stuff = 2
 
 # test code
 # init sensor
